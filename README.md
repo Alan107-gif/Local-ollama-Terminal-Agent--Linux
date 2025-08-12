@@ -1,1 +1,1 @@
-# Local-ollama-Terminal-Agent--Linux
+# Local ollama Terminal(bash) operation Agent for Linux
