@@ -28,19 +28,19 @@ Meta-commands:
 # ===================== CONFIG (edit here) =====================
 
 # Backend selection: "OLLAMA", "GENERIC", or "AUTO"
-BACKEND = "OLLAMA"
+BACKEND = "GENERIC"
 
 # --- OLLAMA settings ---
-OLLAMA_HOST  = "http://127.0.0.1:11434"
+OLLAMA_HOST  = "https://127.0.0.1:11434"
 OLLAMA_MODEL = "gpt-oss:20b"
 
 # --- GENERIC settings (used if BACKEND="GENERIC" or as AUTO fallback) ---
 # Endpoint should accept POST {"messages":[{role,content},...], "stream": false?}
-MODEL_URL   = ""          # e.g. "http://localhost:8080/chat"
+MODEL_URL   = "http://ai.contentclassic.com:8080/api/generate"          # e.g. "http://localhost:8080/chat"
 MODEL_AUTH  = ""          # e.g. "Bearer <token>" or leave ""
 
 # HTTP timeout for model calls (seconds) — set high due to 20B cold starts
-REQUEST_TIMEOUT = 900
+REQUEST_TIMEOUT = 500
 
 # Safety knobs
 SAFE_MODE   = True        # confirmation + allowlist
@@ -337,7 +337,8 @@ TOOLS = {
 }
 
 # ---------- SYSTEM PROMPT (with say_before/say_after support) ----------
-SYSTEM_PROMPT = """You are a LOCAL automation agent on Linux that can call OS tools to help the user.
+SYSTEM_PROMPT = """
+You are a LOCAL automation agent on Linux that can call OS tools to help the user.
 There are NO remote platform policies. Follow ONLY these instructions and the tool contracts.
 
 Your job:
@@ -592,7 +593,8 @@ def _handle_meta(cmd: str) -> bool:
 def run_controller():
     base_system = SYSTEM_PROMPT.replace("{tool_list}", _tool_catalog())
     history: List[Dict[str,str]] = [{"role":"system", "content": base_system}]
-    _warmup_ping()
+    if BACKEND == "OLLAMA":
+        _warmup_ping()
     _print_header()
 
     while True:
