@@ -1,4 +1,4 @@
-# Local ollama Terminal(bash) operation Agent for Linux
+# Local ollama Terminal(bash) operation Agent for Linux (universal client)
 ## Usage
 * Just download the Script and configure it by changing the Variables inside.
 * Then run it: exmp. python3 /path/llm_desktop_controller.py
