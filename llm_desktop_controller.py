@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+# by Alan Serbin @2025 License: GNU
 LLM Desktop Controller — Linux Edition (stdlib-only, no env vars)
 
 - Linux only (xdg-open/gio/gnome-open/kde-open, ps, kill).
